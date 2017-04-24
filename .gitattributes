@@ -15,3 +15,6 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# Scan examples subdirectory for source files
+examples/**.ino linguist-documentation=false
