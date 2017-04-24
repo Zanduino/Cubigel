@@ -16,5 +16,7 @@
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
 
-# Scan examples subdirectory for source files
+# Scan Examples subdirectory for source files
 Examples/CubigelExample/*.ino linguist-documentation=false
+Examples/* linguist-documentation=false
+
