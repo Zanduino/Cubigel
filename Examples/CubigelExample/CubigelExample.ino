@@ -26,7 +26,7 @@
 #include <SoftwareSerial.h>                                                   // Software serial port emulation   //
 #include <Cubigel.h>                                                          // Include Cubigel library          //
 enum DeviceName {Fridge,Freezer,LastElement};                                 // Define the devices we have       //
-const uint16_t INTERVAL_MILLIS = 15000;                                       // interval between readings        //
+const uint32_t INTERVAL_MILLIS = 60000;                                       // interval between readings        //
 const uint8_t  FRIDGE_RX_PIN   =   52;                                        // Pin for fridge serial receive    //
 const uint8_t  FRIDGE_TX_PIN   =   53;                                        // Pin for fridge serial transmit   //
 SoftwareSerial FridgeSerial(FRIDGE_RX_PIN,FRIDGE_TX_PIN);                     // Instantiate Fridge serial port   //
