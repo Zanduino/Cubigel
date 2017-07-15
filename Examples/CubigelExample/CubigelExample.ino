@@ -4,6 +4,7 @@
 ** using the library can do any processing it needs until such time as it requests the most recent statistics.    **
 ** The system settings are only collected once when the class is instantiated, any subsequent changes by another  **
 ** program will not get picked up.                                                                                **
+**                                                                                                                **
 ** The SofwareSerial library can be used for one device, but not for more. This is because the library only looks **
 ** for pin change interrupts on one port at a time, and since this library is designed to work in the background  **
 ** using it's own interrupt to get triggered it cannot switch the SoftwareSerial active port around at the same   **
@@ -27,8 +28,8 @@
 #include <Cubigel.h>                                                          // Include Cubigel library          //
 enum DeviceName {Fridge,Freezer,LastElement};                                 // Define the devices we have       //
 const uint32_t INTERVAL_MILLIS = 60000;                                       // interval between readings        //
-const uint8_t  FRIDGE_RX_PIN   =   52;                                        // Pin for fridge serial receive    //
-const uint8_t  FRIDGE_TX_PIN   =   53;                                        // Pin for fridge serial transmit   //
+const uint8_t  FRIDGE_RX_PIN   =    52;                                       // Pin for fridge serial receive    //
+const uint8_t  FRIDGE_TX_PIN   =    53;                                       // Pin for fridge serial transmit   //
 SoftwareSerial FridgeSerial(FRIDGE_RX_PIN,FRIDGE_TX_PIN);                     // Instantiate Fridge serial port   //
                                                                               // Instantiate Cubigel class with   //
 CubigelClass   Cubigel(&FridgeSerial,&Serial1);                               // one software serial port and one //

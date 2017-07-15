@@ -41,9 +41,9 @@
 #ifndef Cubigel_h                                                             // Guard code definition            //
   #define Cubigel_h                                                           // Define the name inside guard code//
    const uint16_t CUBIGEL_BAUD_RATE   = 1200;                                 // Cubigel has a fixed baud rate    //
-   const uint8_t  CUBIGEL_MAX_DEVICES = 2;                                    // Max number of devices supported  //
-   const uint8_t  MODE_DEFAULT        = 0;                                    // Default output mode              //
-   const uint8_t  MODE_SETTINGS       = 1;                                    // Output settings mode             //
+   const uint8_t  CUBIGEL_MAX_DEVICES =    2;                                 // Max number of devices supported  //
+   const uint8_t  MODE_DEFAULT        =    0;                                 // Default output mode              //
+   const uint8_t  MODE_SETTINGS       =    1;                                 // Output settings mode             //
   /*****************************************************************************************************************
   ** This structure contains all of the variables stored per Cubigel device                                       **
   *****************************************************************************************************************/
