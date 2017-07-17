@@ -1,5 +1,5 @@
 # Cubigel library
-*Arduino* library for communicating with any Cubigel compressor family which uses the FDC1 communication protocol. The library allows reading the programmed compressor settings as well as the data sentences that are sent twice a second from the compressor.
+<img src="https://github.com/SV-Zanshin/Cubigel/blob/master/Images/HuayiCompressor.png" width="175" align="right"/> *Arduino* library for communicating with any Cubigel compressor family which uses the FDC1 communication protocol. The library allows reading the programmed compressor settings as well as the data sentences that are sent twice a second from the compressor.
 Currently the library is limited to 2 devices, but it can easily be modified to support more; this limit was chosen to minimize memory usage and simplify implementation; particularly as most installations will have at most 2 compressors - one for the refrigerator and one for the freezer.
 The library collects data in the background (piggybacking off the TIMER0_COMPA interrupt) and does not require manual polling. The data sentences containing RPM and amperage values are averaged automatically so that the correct value since the last reading is always returned.
 
