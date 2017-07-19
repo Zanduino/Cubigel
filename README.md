@@ -4,7 +4,7 @@ Currently the library is limited to accessing 2 devices simultaneously, but it c
 The library collects data in the background (piggybacking off the TIMER0_COMPA interrupt) and does not require manual polling to function, freeing up the Arduino/Atmel to perform other tasks. The data sentences containing RPM and amperage values are averaged automatically so that the correct value since the last reading is always returned regardless of how long it takes between library calls to retrieve the data.
 
 ## Communication Protocol
-The manufacturer has published several documents regarding communicating with the FDC1 controller on their website. The main FDC1 document is [GD30FDC User Manual](www.huayicompressor.es/phocadownload/user-manuals/user_manual_gd30fdc.pdf) and the definition of the communication protocol can be found at [FDC1 Communication Protocol](https://www.sv-zanshin.com/r/manuals/cubigel_fdc1_communication_protocol.pdf)
+The manufacturer has published several documents regarding communicating with the FDC1 controller on their website. The main FDC1 document is [GD30FDC User Manual](http://www.huayicompressor.es/phocadownload/user-manuals/user_manual_gd30fdc.pdf) and the definition of the communication protocol can be found at [FDC1 Communication Protocol](https://www.sv-zanshin.com/r/manuals/cubigel_fdc1_communication_protocol.pdf)
 
 Details of library and methods are described on the [GitHub DSFamily Wiki](https://github.com/SV-Zanshin/Cubigel/wiki) pages.
 
