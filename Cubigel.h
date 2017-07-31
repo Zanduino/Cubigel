@@ -31,6 +31,8 @@
 **                                                                                                                **
 ** Vers.  Date       Developer           Comments                                                                 **
 ** ====== ========== =================== ======================================================================== **
+** 1.0.1  2017-07-31 Arnd@SV-Zanshin.Com Prototypes contain optional parameter definitions, functions no longer   **
+**                                       have them declared as non-Windows compilers fail when they do            **
 ** 1.0.0  2017-04-19 Arnd@SV-Zanshin.Com Cleaned up debugging code and ready for first release                    **
 ** 1.0.b1 2017-04-18 Arnd@SV-Zanshin.Com Added support for hardware serial in addition to software serial         **
 ** 1.0.b2 2017-02-21 Arnd@SV-Zanshin.Com Initial coding                                                           **

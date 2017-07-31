@@ -106,7 +106,7 @@ void CubigelClass::TimerHandler() {                                           //
 ** the statistics are reset after this call, but the optional resetReading parameter can override this setting    **
 *******************************************************************************************************************/
 uint16_t CubigelClass::readValues(const uint8_t idx,uint16_t &RPM,uint16_t &mA,//                                 //
-                                  const bool resetReadings=true) {            //                                  //
+                                  const bool resetReadings) {                 //                                  //
   if (idx>=deviceCount) return 0;                                             // just return nothing if invalid   //
   cli();                                                                      // Disable interrupts               //
   RPM = devices[idx].totalRPM/devices[idx].readings;                          // set the averaged RPM value       //
@@ -128,7 +128,7 @@ uint16_t CubigelClass::readValues(const uint8_t idx,uint16_t &RPM,uint16_t &mA,/
 *******************************************************************************************************************/
 uint16_t CubigelClass::readValues(const uint8_t idx,uint16_t &RPM,uint16_t &mA,//                                 //
                                   uint16_t &commsErrors, uint16_t errorStatus,//                                  //
-                                  const bool resetReadings=true) {            //                                  //
+                                  const bool resetReadings) {                 //                                  //
   if (idx>=deviceCount) return 0;                                             // just return nothing if invalid   //
   cli();                                                                      // Disable interrupts               //
   RPM = devices[idx].totalRPM/devices[idx].readings;                          // set the averaged RPM value       //
@@ -150,7 +150,7 @@ uint16_t CubigelClass::readValues(const uint8_t idx,uint16_t &RPM,uint16_t &mA,/
 ** function setMode() is called to set which mode the Cubigel outputs data in. The default mode, MODE_DEFAULT,    **
 ** outputs the message type 76 which contains the compressor speed and current consumption.                       **
 *******************************************************************************************************************/
-void  CubigelClass::setMode(const uint8_t idx, const uint8_t mode=0) {        // Set Cubigel FDC1 mode            //
+void  CubigelClass::setMode(const uint8_t idx, const uint8_t mode) {          // Set Cubigel FDC1 mode            //
   uint8_t      modeByte = 0;                                                  // Byte to set state, default is 0  //
   if (mode==1) modeByte = 192;                                                // Mode 0 is the default            //
   if (idx>=deviceCount) return 0;                                             // just return nothing if invalid   //
