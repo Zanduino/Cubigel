@@ -44,10 +44,10 @@ void setup() {                                                                //
   Serial.println(F("Cubigel example program"));                               //                                  //
   delay(1100);                                                                // 2 sentences get sent per second, //
   delay(1100);                                                                // Repeat for first data sentence   //
-  Serial.println(F("_______________________________________________________________________________"));
-  Serial.println(F("|        | Compressor |      12V      |      24V      |      42V      | Run   |"));
-  Serial.println(F("| Device |  min/max   |  Out  /  In   |  Out  /  In   |  Out  /  In   | Mode  |"));
-  Serial.println(F("|========|============|===============|===============|===============|=======|"));
+  Serial.println(F("_______________________________________________________________________________")); //        //
+  Serial.println(F("|        | Compressor |      12V      |      24V      |      42V      | Run   |")); //        //
+  Serial.println(F("| Device |  min/max   |  Out  /  In   |  Out  /  In   |  Out  /  In   | Mode  |")); //        //
+  Serial.println(F("|========|============|===============|===============|===============|=======|")); //        //
   for(uint8_t idx=0;idx<LastElement;idx++) {                                  // Loop for every device enumerated //
     uint16_t compMin,compMax,out12V,in12V,out24V,in24V,out42V,in42V;          // declare temporary variables      //
     uint8_t  mode;                                                            // declare temporary variables      //
@@ -73,7 +73,7 @@ void setup() {                                                                //
       else               Serial.print(F("IN 1/2"));                           //                                  //
     Serial.println(F(" |"));                                                  //                                  //
   } // of for-next loop for each device                                       //                                  //
-  Serial.println(F("|________|____________|_______________|_______________|_______________|_______|"));
+  Serial.println(F("|________|____________|_______________|_______________|_______________|_______|")); //        //
   Serial.println(F("\nRdgs  = Number of readings"));                          //                                  //
   Serial.println(F("RPM   = Compressor speed"));                              //                                  //
   Serial.println(F("mA    = Milliamps current consumption"));                 //                                  //
