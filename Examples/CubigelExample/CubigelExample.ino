@@ -3,14 +3,17 @@
 ** stantiated, will automatically collect statistics in the background using an interrupt so that any program     **
 ** using the library can do any processing it needs until such time as it requests the most recent statistics.    **
 ** The system settings are only collected once when the class is instantiated, any subsequent changes by another  **
-** program will not get picked up.                                                                                **
+** program will not get picked up. The most recent version of the library as well as of this program can be       **
+** downloaded from https://github.com/SV-Zanshin/Cubigel/archive/master.zip and the library wiki is to be found   **
+** at https://github.com/SV-Zanshin/Cubigel/wiki.                                                                 **
 **                                                                                                                **
-** The SofwareSerial library can be used for one device, but not for more. This is because the library only looks **
-** for pin change interrupts on one port at a time, and since this library is designed to work in the background  **
-** using it's own interrupt to get triggered it cannot switch the SoftwareSerial active port around at the same   **
-** time. This means that if two devices (or potentially more) devices are to be monitored then all but one must   **
-** use the Arduino's UARTs. This, in turn, means that only such Atmel chips as the ATMega, which has 4 hardware   **
-** UARTs, can be used if one wishes to monitor more than 2 devices.                                               **
+** The "SoftwareSerial library" (see https://www.arduino.cc/en/Reference/SoftwareSerial) can be used for one      **
+** device, but not for more. This is because the library only looks for pin change interrupts on one port at a    **
+** time, and since this library is designed to work in the background using it's own interrupt to get triggered   **
+** it cannot switch the SoftwareSerial active port around at the same time. This means that if two devices (or    **
+** potentially more) devices are to be monitored then all but one must use the Arduino's UARTs. This, in turn,    **
+** means that only such Atmel chips as the ATMega, which has 4 hardware UARTs, can be used if one wishes to       **
+** monitor more than 2 devices.                                                                                   **
 **                                                                                                                **
 ** This program is free software: you can redistribute it and/or modify it under the terms of the GNU General     **
 ** Public License as published by the Free Software Foundation, either version 3 of the License, or (at your      **
@@ -21,6 +24,7 @@
 **                                                                                                                **
 ** Vers.  Date       Developer           Comments                                                                 **
 ** ====== ========== =================== ======================================================================== **
+** 1.0.1  2017-08-21 Arnd@SV-Zanshin.Com Fixed comments, removed extraneous code                                  **
 ** 1.0.0b 2017-02-21 Arnd@SV-Zanshin.Com Initial coding                                                           **
 **                                                                                                                **
 *******************************************************************************************************************/
@@ -76,7 +80,7 @@ void setup() {                                                                //
   Serial.println(F("|________|____________|_______________|_______________|_______________|_______|")); //        //
   Serial.println(F("\nRdgs  = Number of readings"));                          //                                  //
   Serial.println(F("RPM   = Compressor speed"));                              //                                  //
-  Serial.println(F("mA    = Milliamps current consumption"));                 //                                  //
+  Serial.println(F("mA    = milliAmps current consumption"));                 //                                  //
   Serial.println(F("Cycle = Number of minutes ON/OFF cycle has lasted"));     //                                  //
   Serial.println(F("\n_________________________________________________"));   //                                  //
   Serial.println(F("| Fridge                | Freezer               |"));     //                                  //
@@ -117,6 +121,6 @@ void loop(){                                                                  //
       } // of if-then we have measurements                                    //                                  //
     } // of for-next loop through all devices                                 //                                  //
     Serial.println(F(" |"));                                                  //                                  //
-    nextInterval = millis()+INTERVAL_MILLIS;                                  // Set next interval value          //
+    nextInterval = millis() + INTERVAL_MILLIS;                                // Set next interval value          //
   } // of if-then time to display                                             //                                  //
 } // of method loop()                                                         //----------------------------------//

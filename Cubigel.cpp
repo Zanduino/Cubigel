@@ -1,5 +1,13 @@
 /*******************************************************************************************************************
-** This program defines the Cubigel class. See the "Cubigel.h" file for program documentation and versions        **
+** This file defines the Cubigel class, see the "Cubigel.h" file for program documentation & version information. **
+**                                                                                                                **
+** This program is free software: you can redistribute it and/or modify it under the terms of the GNU General     **
+** Public License as published by the Free Software Foundation, either version 3 of the License, or (at your      **
+** option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY     **
+** WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   **
+** GNU General Public License for more details. You should have received a copy of the GNU General Public License **
+** along with this program.  If not, see <http://www.gnu.org/licenses/>.                                          **
+**                                                                                                                **
 *******************************************************************************************************************/
 #include <SoftwareSerial.h>                                                   // Include the software serial lib  //
 #include "Cubigel.h"                                                          // Include the header file          //
@@ -16,7 +24,7 @@ CubigelClass::CubigelClass( SoftwareSerial *ser1) {                           //
   ClassPtr      = this;                                                       // pointer to current instance      //
   devices[0].serialSW = ser1;                                                 // point to the appropriate port    //
   devices[0].serialSW->begin(CUBIGEL_BAUD_RATE);                              // Set baud rate to Cubigel speed   //
-  deviceCount = 1;                                                            // Store the number of devices      //
+  _deviceCount = 1;                                                           // Store the number of devices      //
   StartTimer();                                                               // Enable timer interrupts          //
   setMode(0,MODE_SETTINGS);                                                   // Retrieve settings on first call  //
 } // of class constructor                                                     //                                  //
@@ -25,7 +33,7 @@ CubigelClass::CubigelClass( HardwareSerial *ser1) {                           //
   ClassPtr      = this;                                                       // pointer to current instance      //
   devices[0].serialHW = ser1;                                                 // point to the appropriate port    //
   devices[0].serialHW->begin(CUBIGEL_BAUD_RATE);                              // Set baud rate to Cubigel speed   //
-  deviceCount = 1;                                                            // Store the number of devices      //
+  _deviceCount = 1;                                                           // Store the number of devices      //
   StartTimer();                                                               // Enable timer interrupts          //
   setMode(0,MODE_SETTINGS);                                                   // Retrieve settings on first call  //
 } // of class constructor                                                     //----------------------------------//
@@ -36,7 +44,7 @@ CubigelClass::CubigelClass( HardwareSerial *ser1,                             //
   devices[0].serialHW->begin(CUBIGEL_BAUD_RATE);                              // Set baud rate to Cubigel speed   //
   devices[1].serialSW = ser2;                                                 // point to the appropriate port    //
   devices[1].serialSW->begin(CUBIGEL_BAUD_RATE);                              // Set baud rate to Cubigel speed   //
-  deviceCount = 2;                                                            // Store the number of devices      //
+  _deviceCount = 2;                                                           // Store the number of devices      //
   StartTimer();                                                               // Enable timer interrupts          //
   setMode(0,MODE_SETTINGS);                                                   // Retrieve settings on first call  //
   setMode(1,MODE_SETTINGS);                                                   // Retrieve settings on first call  //
@@ -48,7 +56,7 @@ CubigelClass::CubigelClass( SoftwareSerial *ser1,                             //
   devices[0].serialSW->begin(CUBIGEL_BAUD_RATE);                              // Set baud rate to Cubigel speed   //
   devices[1].serialHW = ser2;                                                 // point to the appropriate port    //
   devices[1].serialHW->begin(CUBIGEL_BAUD_RATE);                              // Set baud rate to Cubigel speed   //
-  deviceCount = 2;                                                            // Store the number of devices      //
+  _deviceCount = 2;                                                           // Store the number of devices      //
   StartTimer();                                                               // Enable timer interrupts          //
   setMode(0,MODE_SETTINGS);                                                   // Retrieve settings on first call  //
   setMode(1,MODE_SETTINGS);                                                   // Retrieve settings on first call  //
@@ -60,7 +68,7 @@ CubigelClass::CubigelClass( HardwareSerial *ser1,                             //
   devices[0].serialHW->begin(CUBIGEL_BAUD_RATE);                              // Set baud rate to Cubigel speed   //
   devices[1].serialHW = ser2;                                                 // point to the appropriate port    //
   devices[1].serialHW->begin(CUBIGEL_BAUD_RATE);                              // Set baud rate to Cubigel speed   //
-  deviceCount = 2;                                                            // Store the number of devices      //
+  _deviceCount = 2;                                                           // Store the number of devices      //
   StartTimer();                                                               // Enable timer interrupts          //
   setMode(0,MODE_SETTINGS);                                                   // Retrieve settings on first call  //
   setMode(1,MODE_SETTINGS);                                                   // Retrieve settings on first call  //
@@ -92,7 +100,7 @@ static void CubigelClass::TimerISR()     {ClassPtr->TimerHandler();}          //
 ** data in them are processed using the "processDevice"function, which does the heavy lifting.                    **
 *******************************************************************************************************************/
 void CubigelClass::TimerHandler() {                                           //                                  //
-  for (uint8_t idx=0;idx<deviceCount;idx++) {                                 // For each defined device          //
+  for (uint8_t idx=0;idx<_deviceCount;idx++) {                                // For each defined device          //
     if (devices[idx].serialSW) {                                              // if we are using software serial, //
       if (devices[idx].serialSW->available()) processDevice(idx);             // check to see if there is any data//
     } else {                                                                  // otherwise we are using HW serial //
@@ -107,7 +115,7 @@ void CubigelClass::TimerHandler() {                                           //
 *******************************************************************************************************************/
 uint16_t CubigelClass::readValues(const uint8_t idx,uint16_t &RPM,uint16_t &mA,//                                 //
                                   const bool resetReadings) {                 //                                  //
-  if (idx>=deviceCount) return 0;                                             // just return nothing if invalid   //
+  if (idx>=_deviceCount) return 0;                                            // just return nothing if invalid   //
   cli();                                                                      // Disable interrupts               //
   RPM = devices[idx].totalRPM/devices[idx].readings;                          // set the averaged RPM value       //
   mA  = devices[idx].totalmA/devices[idx].readings;                           // set the averaged mA value        //
@@ -129,7 +137,7 @@ uint16_t CubigelClass::readValues(const uint8_t idx,uint16_t &RPM,uint16_t &mA,/
 uint16_t CubigelClass::readValues(const uint8_t idx,uint16_t &RPM,uint16_t &mA,//                                 //
                                   uint16_t &commsErrors, uint16_t errorStatus,//                                  //
                                   const bool resetReadings) {                 //                                  //
-  if (idx>=deviceCount) return 0;                                             // just return nothing if invalid   //
+  if (idx>=_deviceCount) return 0;                                            // just return nothing if invalid   //
   cli();                                                                      // Disable interrupts               //
   RPM = devices[idx].totalRPM/devices[idx].readings;                          // set the averaged RPM value       //
   mA  = devices[idx].totalmA/devices[idx].readings;                           // set the averaged mA value        //
@@ -153,7 +161,7 @@ uint16_t CubigelClass::readValues(const uint8_t idx,uint16_t &RPM,uint16_t &mA,/
 void  CubigelClass::setMode(const uint8_t idx, const uint8_t mode) {          // Set Cubigel FDC1 mode            //
   uint8_t      modeByte = 0;                                                  // Byte to set state, default is 0  //
   if (mode==1) modeByte = 192;                                                // Mode 0 is the default            //
-  if (idx>=deviceCount) return 0;                                             // just return nothing if invalid   //
+  if (idx>=_deviceCount) return 0;                                            // just return nothing if invalid   //
   if (devices[idx].serialSW) {                                                // if we are using software serial, //
     devices[idx].serialSW->write((uint8_t)72);                                // Write control information        //
     devices[idx].serialSW->write((uint8_t)80);                                // Write control information        //

@@ -3,6 +3,9 @@
 ** accessed using this library. The detailed protocol description can be downloaded as a PDF file from            **
 ** https://www.sv-zanshin.com/r/manuals/cubigel_fdc1_communication_protocol.pdf                                   **
 **                                                                                                                **
+** The most recent version of the library is at https://github.com/SV-Zanshin/Cubigel/archive/master.zip and the  **
+** library wiki is to be found https://github.com/SV-Zanshin/Cubigel/wiki.                                        **
+**                                                                                                                **
 ** This library uses the Arduino SoftwareSerial library, and it is important to only use those pins which support **
 ** pin change interrupts for the fridge and freezer inputs. A good description of the pins and their uses can be  **
 ** found at https://www.arduino.cc/en/Reference/AttachInterrupt.                                                  **
@@ -31,6 +34,7 @@
 **                                                                                                                **
 ** Vers.  Date       Developer           Comments                                                                 **
 ** ====== ========== =================== ======================================================================== **
+** 1.0.2  2017-08-21 Arnd@SV-Zanshin.Com Removed extraneous code, changed comments                                **
 ** 1.0.1  2017-07-31 Arnd@SV-Zanshin.Com Prototypes contain optional parameter definitions, functions no longer   **
 **                                       have them declared as non-Windows compilers fail when they do            **
 ** 1.0.0  2017-04-19 Arnd@SV-Zanshin.Com Cleaned up debugging code and ready for first release                    **
@@ -42,10 +46,10 @@
 #include "SoftwareSerial.h"                                                   // Software serial port emulation   //
 #ifndef Cubigel_h                                                             // Guard code definition            //
   #define Cubigel_h                                                           // Define the name inside guard code//
-   const uint16_t CUBIGEL_BAUD_RATE   = 1200;                                 // Cubigel has a fixed baud rate    //
-   const uint8_t  CUBIGEL_MAX_DEVICES =    2;                                 // Max number of devices supported  //
-   const uint8_t  MODE_DEFAULT        =    0;                                 // Default output mode              //
-   const uint8_t  MODE_SETTINGS       =    1;                                 // Output settings mode             //
+  const uint16_t CUBIGEL_BAUD_RATE   = 1200;                                  // Cubigel has a fixed baud rate    //
+  const uint8_t  CUBIGEL_MAX_DEVICES =    2;                                  // Max number of devices supported  //
+  const uint8_t  MODE_DEFAULT        =    0;                                  // Default output mode              //
+  const uint8_t  MODE_SETTINGS       =    1;                                  // Output settings mode             //
   /*****************************************************************************************************************
   ** This structure contains all of the variables stored per Cubigel device                                       **
   *****************************************************************************************************************/
@@ -108,8 +112,8 @@
       void                 processDevice(const uint8_t deviceNumber);         // read and store data for a device //
       void                 TimerHandler();                                    // Called every millisecond for fade//
       static CubigelClass* ClassPtr;                                          // store pointer to class itself    //
-      bool FreezerPresent = false;                                            // Switch denoting if a freezer set //
-      uint8_t deviceCount = 0;                                                // Number of devices instantiated   //
+      bool    _freezerPresent = false;                                        // Switch denoting if a freezer set //
+      uint8_t _deviceCount   = 0;                                             // Number of devices instantiated   //
       volatile CubigelDataType devices[CUBIGEL_MAX_DEVICES];                  // Declare storage for max devices  //
   }; // of class header definition for CubigelClass                           //----------------------------------//
 #endif
