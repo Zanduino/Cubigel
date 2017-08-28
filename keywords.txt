@@ -10,10 +10,10 @@ Cubigel_Class	KEYWORD1
 ####################################
 # Methods and Functions (KEYWORD2) #
 ####################################
-readValues					KEYWORD2
-readSettings					KEYWORD2
-requestSettings					KEYWORD2
-readTiming					KEYWORD2
+readValues	KEYWORD2
+readSettings	KEYWORD2
+requestSettings	KEYWORD2
+readTiming	KEYWORD2
 
 ########################
 # Constants (LITERAL1) #
