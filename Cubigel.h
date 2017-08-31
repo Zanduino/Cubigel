@@ -32,14 +32,15 @@
 ** GNU General Public License for more details. You should have received a copy of the GNU General Public License **
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.                                          **
 **                                                                                                                **
-** Vers.  Date       Developer           Comments                                                                 **
-** ====== ========== =================== ======================================================================== **
-** 1.0.2  2017-08-21 Arnd@SV-Zanshin.Com Removed extraneous code, changed comments                                **
-** 1.0.1  2017-07-31 Arnd@SV-Zanshin.Com Prototypes contain optional parameter definitions, functions no longer   **
-**                                       have them declared as non-Windows compilers fail when they do            **
-** 1.0.0  2017-04-19 Arnd@SV-Zanshin.Com Cleaned up debugging code and ready for first release                    **
-** 1.0.b1 2017-04-18 Arnd@SV-Zanshin.Com Added support for hardware serial in addition to software serial         **
-** 1.0.b2 2017-02-21 Arnd@SV-Zanshin.Com Initial coding                                                           **
+** Vers.  Date       Developer                     Comments                                                       **
+** ====== ========== ============================= ============================================================== **
+** 1.0.2  2017-08-21 https://github.com/SV-Zanshin Removed extraneous code, changed comments                      **
+** 1.0.1  2017-07-31 https://github.com/SV-Zanshin Prototypes contain optional parameter definitions, the         **
+**                                                     functions no longer have them declared as non-Windows      **
+**                                                     compilers fail when they do                                **
+** 1.0.0  2017-04-19 https://github.com/SV-Zanshin Cleaned up debugging code and ready for first release          **
+** 1.0.b1 2017-04-18 https://github.com/SV-Zanshin Added hardware serial in addition to software serial           **
+** 1.0.b2 2017-02-21 https://github.com/SV-Zanshin Initial coding                                                 **
 **                                                                                                                **
 *******************************************************************************************************************/
 #include "Arduino.h"                                                          // Arduino data type definitions    //
