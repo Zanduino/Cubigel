@@ -22,10 +22,10 @@
 ** GNU General Public License for more details. You should have received a copy of the GNU General Public License **
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.                                          **
 **                                                                                                                **
-** Vers.  Date       Developer           Comments                                                                 **
-** ====== ========== =================== ======================================================================== **
-** 1.0.1  2017-08-21 Arnd@SV-Zanshin.Com Fixed comments, removed extraneous code                                  **
-** 1.0.0b 2017-02-21 Arnd@SV-Zanshin.Com Initial coding                                                           **
+** Vers.  Date       Developer                     Comments                                                       **
+** ====== ========== ============================= ============================================================== **
+** 1.0.1  2017-08-21 https://github.com/SV-Zanshin Fixed comments, removed extraneous code                        **
+** 1.0.0b 2017-02-21 https://github.com/SV-Zanshin Initial coding                                                 **
 **                                                                                                                **
 *******************************************************************************************************************/
 #include <SoftwareSerial.h>                                                   // Software serial port emulation   //
