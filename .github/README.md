@@ -8,4 +8,4 @@ The manufacturer has published several documents regarding communicating with th
 
 Details of library and methods are described on the [GitHub DSFamily Wiki](https://github.com/SV-Zanshin/Cubigel/wiki) pages along withe example sketches.
 
-![Zanshin Logo](https://www.sv-zanshin.com/images/gif/zanshinkanjitiny.gif) <img src="https://www.sv-zanshin.com/images/gif/zanshintext.gif" width="75"/>
+[![Zanshin Logo](https://zanduino.github.io/Images/zanshinkanjitiny.gif) <img src="https://zanduino.github.io/Images/zanshintext.gif" width="75"/>](https://www.sv-zanshin.com)
