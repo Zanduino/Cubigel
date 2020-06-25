@@ -24,6 +24,7 @@
 **                                                                                                                **
 ** Vers.  Date       Developer                     Comments                                                       **
 ** ====== ========== ============================= ============================================================== **
+** 1.0.2  2020-06-25 https://github.com/SV-Zanshin Fixed comments                                                 **
 ** 1.0.1  2017-08-21 https://github.com/SV-Zanshin Fixed comments, removed extraneous code                        **
 ** 1.0.0b 2017-02-21 https://github.com/SV-Zanshin Initial coding                                                 **
 **                                                                                                                **
@@ -45,7 +46,7 @@ static char    sprintfBuffer[32];                                             //
 void setup() {                                                                // Start One-Time run section       //
   Serial.begin(115200);                                                       // Initialize Serial I/O at speed   //
   while (!Serial);                                                            // Give serial port time to start   //
-  Serial.println(F("Cubigel example program"));                               //                                  //
+  Serial.println(F("Cubigel example program [v1.0.2]"));                      //                                  //
   delay(1100);                                                                // 2 sentences get sent per second, //
   delay(1100);                                                                // Repeat for first data sentence   //
   Serial.println(F("_______________________________________________________________________________")); //        //
@@ -71,7 +72,7 @@ void setup() {                                                                //
     sprintf(sprintfBuffer,"%2d.%03d/%2d.%03d |",out42V/1000,out42V%1000,      //                                  //
             in42V/1000,in42V%1000);                                           //                                  //
     Serial.print(sprintfBuffer);                                              //                                  //
-    if (mode & 12 == 12) Serial.print(F("Energy"));                           //                                  //
+    if ((mode & 12) == 12) Serial.print(F("Energy"));                         //                                  //
       else if (mode & 8) Serial.print(F(" Sleep"));                           //                                  //
       else if (mode & 4) Serial.print(F(" Smart"));                           //                                  //
       else               Serial.print(F("IN 1/2"));                           //                                  //
@@ -93,14 +94,13 @@ void setup() {                                                                //
 *******************************************************************************************************************/
 void loop(){                                                                  // Main program infinite loop       //
   static unsigned long nextInterval  = 0;                                     // store time for next display      //
-  static unsigned long tempStartTime = 0;                                     // store the last compressor start  //
-  static unsigned long tempStopTime  = 0;                                     // store the last compressor stop   //
-  static uint64_t      cycleSecs     = 0;                                     // store the cycle time             //
+  static uint32_t      tempStartTime = 0;                                     // store the last compressor start  //
+  static uint32_t      tempStopTime  = 0;                                     // store the last compressor stop   //
   if (millis()>nextInterval) {                                                // If it is time to display values  //
     uint16_t readings,RPM,mA,CommsErrors,CubigelError;                        // Declare temporary variables      //
     for(uint8_t idx=0;idx<LastElement;idx++) {                                // Loop for every device enumerated //
       readings = Cubigel.readValues(idx,RPM,mA,CommsErrors,CubigelError);     // Read and reset values            //
-      uint64_t cycleSecs = 0;                                                 // store the cycle time             //
+      uint16_t cycleSecs = 0;                                                 // store the cycle time             //
       if (Cubigel.readTiming(idx,tempStartTime,tempStopTime)) {               // Read the Start/Stop times        //
         if(tempStartTime>tempStopTime)                                        // When we have a start event, then //
           cycleSecs = (tempStartTime-tempStopTime)/60000;                     //                                  //

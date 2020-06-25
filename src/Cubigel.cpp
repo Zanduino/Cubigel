@@ -161,7 +161,7 @@ uint16_t CubigelClass::readValues(const uint8_t idx,uint16_t &RPM,uint16_t &mA,/
 void  CubigelClass::setMode(const uint8_t idx, const uint8_t mode) {          // Set Cubigel FDC1 mode            //
   uint8_t      modeByte = 0;                                                  // Byte to set state, default is 0  //
   if (mode==1) modeByte = 192;                                                // Mode 0 is the default            //
-  if (idx>=_deviceCount) return 0;                                            // just return nothing if invalid   //
+  if (idx>=_deviceCount) return;                                              // just return nothing if invalid   //
   if (devices[idx].serialSW) {                                                // if we are using software serial, //
     devices[idx].serialSW->write((uint8_t)72);                                // Write control information        //
     devices[idx].serialSW->write((uint8_t)80);                                // Write control information        //
