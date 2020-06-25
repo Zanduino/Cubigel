@@ -6,6 +6,6 @@ The library collects data in the background (piggybacking off the [TIMER0_COMPA]
 ## Communication Protocol
 The manufacturer has published several documents regarding communicating with the FDC1 controller on their website. The main FDC1 document is [GD30FDC User Manual](http://www.huayicompressor.es/phocadownload/user-manuals/user_manual_gd30fdc.pdf) and the definition of the communication protocol can be found at [FDC1 Communication Protocol](https://www.sv-zanshin.com/r/manuals/cubigel_fdc1_communication_protocol.pdf)
 
-Details of library and methods are described on the [GitHub DSFamily Wiki](https://github.com/SV-Zanshin/Cubigel/wiki) pages along withe example sketches.
+Details of library and methods are described on the [GitHub Cubigel Wiki](https://github.com/SV-Zanshin/Cubigel/wiki) pages along withe example sketches.
 
 [![Zanshin Logo](https://zanduino.github.io/Images/zanshinkanjitiny.gif) <img src="https://zanduino.github.io/Images/zanshintext.gif" width="75"/>](https://www.sv-zanshin.com)
