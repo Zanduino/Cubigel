@@ -1,0 +1,54 @@
+######################################################################################################
+## Travis-CI control file                                                                           ##
+##                                                                                                  ##
+## This YML file controls the way that TRAVIS-CI works for testing the compilability of the library ##
+## and example programs for all supported platforms.  Rather than re-invent the wheel, the public   ##
+## scripts written by the folks at www.adafruit.com are used; as they will add new platforms as     ##
+## needed and thus the continuous integration process for this library will be kept up-to-date.     ##
+##                                                                                                  ##
+## Date       Developer                     Comments                                                ##
+## ========== ============================= ======================================================= ##
+## 2020-06-26 https://github.com/SV-Zanshin Added file, cloned from BME680                          ##
+##                                                                                                  ##
+######################################################################################################
+language: c
+sudo: false
+
+#########################################################
+# Keep the gh-pages from being included in the CI runs ##
+#########################################################
+branches:
+  except:
+    - gh-pages
+    
+cache:
+  directories:
+    - ~/arduino_ide
+    - ~/.arduino15/packages/
+    
+git:
+  depth: false
+  quiet: true
+env:
+  global:
+    - PRETTYNAME="Cubigel Library"
+    - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
+
+before_install:
+  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+
+install:
+
+script:
+  - build_main_platforms
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+###########################################################
+# Generate the Doxygen documentation upon successful run ##
+###########################################################
+after_success:
+  - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
