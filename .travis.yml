@@ -8,6 +8,7 @@
 ##                                                                                                  ##
 ## Date       Developer                     Comments                                                ##
 ## ========== ============================= ======================================================= ##
+## 2020-06-26 https://github.com/SV-Zanshin Removed Doxygen call at end, as this isn't compatible   ##
 ## 2020-06-26 https://github.com/SV-Zanshin Added file, cloned from BME680                          ##
 ##                                                                                                  ##
 ######################################################################################################
@@ -50,5 +51,5 @@ notifications:
 ###########################################################
 # Generate the Doxygen documentation upon successful run ##
 ###########################################################
-after_success:
-  - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
+##after_success:
+##  - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
