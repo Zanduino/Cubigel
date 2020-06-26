@@ -1,4 +1,4 @@
- [![Wiki](https://github.com/SV-Zanshin/BME680/blob/master/Images/Documentation-wiki.svg)](https://github.com/Zanduino/FridgeLogger/wiki)
+ [![Build Status](https://travis-ci.com/Zanduino/Cubigel?branch=master)](https://travis-ci.com/Zanduino/Cubigel) [![Wiki](https://github.com/SV-Zanshin/BME680/blob/master/Images/Documentation-wiki.svg)](https://github.com/Zanduino/FridgeLogger/wiki)
  
  # Cubigel library
 <img src="https://github.com/SV-Zanshin/Cubigel/blob/master/Images/HuayiCompressor.png" width="175" align="right"/> *Arduino* library for communicating with any compressor in the [Cubigel family](http://www.huayicompressor.es/) which uses their proprietery [FDC1](https://www.sv-zanshin.com/r/manuals/cubigel_fdc1_communication_protocol.pdf) communication protocol. The library allows reading the programmed compressor settings as well as the data sentences that are sent twice a second from the compressor.
