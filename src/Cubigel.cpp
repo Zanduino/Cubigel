@@ -215,7 +215,7 @@ void CubigelClass::processDevice(const uint8_t idx) {                         //
           devices[idx].totalRPM += (devices[idx].buffer[2]*256)+devices[idx].buffer[3]; // Add in RPM             //
           devices[idx].totalmA  += ((uint32_t)devices[idx].buffer[4]*256+devices[idx].buffer[5])*1000/3160;// mA  //
         } else {                                                              // otherwise system off, check for  //
-          devices[idx].errorStatus != devices[idx].buffer[5];                 // OR the alarm codes together      //
+          devices[idx].errorStatus |= devices[idx].buffer[5];                 // OR the alarm codes together      //
         } // of if-then-else the fridge is on                                 //                                  //
       } else {                                                                //                                  //
         devices[idx].commsErrors++;                                           // Add to number of errors detected //
