@@ -1,17 +1,19 @@
-######################################################################################################
-## Travis-CI control file                                                                           ##
-##                                                                                                  ##
-## This YML file controls the way that TRAVIS-CI works for testing the compilability of the library ##
-## and example programs for all supported platforms.  Rather than re-invent the wheel, the public   ##
-## scripts written by the folks at www.adafruit.com are used; as they will add new platforms as     ##
-## needed and thus the continuous integration process for this library will be kept up-to-date.     ##
-##                                                                                                  ##
-## Date       Developer                     Comments                                                ##
-## ========== ============================= ======================================================= ##
-## 2020-06-26 https://github.com/SV-Zanshin Removed Doxygen call at end, as this isn't compatible   ##
-## 2020-06-26 https://github.com/SV-Zanshin Added file, cloned from BME680                          ##
-##                                                                                                  ##
-######################################################################################################
+####################################################################################################
+## Travis-CI control file                                                                         ##
+##                                                                                                ##
+## This YML file controls the way that TRAVIS-CI works for testing the compilability of the       ##
+## library and example programs for all supported platforms.  Rather than re-invent the wheel,    ##
+## the public scripts written by the folks at www.adafruit.com are used; as they will add new     ##
+## platforms as needed and thus the continuous integration process for this library will be kept  ##
+## up-to-date.                                                                                    ##
+##                                                                                                ##
+## Date       Developer  Comments                                                                 ##
+## ========== = ======== ======================================================================== ##
+## 2020-07-01 SV-Zanshin Added clang-format checking                                              ##
+## 2020-06-26 SV-Zanshin Removed Doxygen call at end, as this isn't compatible                    ##
+## 2020-06-26 SV-Zanshin Added file, cloned from BME680                                           ##
+##                                                                                                ##
+####################################################################################################
 language: c
 sudo: false
 
@@ -30,6 +32,12 @@ cache:
 git:
   depth: false
   quiet: true
+addons:
+  apt:
+    packages:
+      - python3-pip
+      - python3-wheel
+      - clang-format-5.0
 env:
   global:
     - PRETTYNAME="Cubigel Library"
@@ -37,7 +45,7 @@ env:
 
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
-
+  - curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/run-clang-format.py > run-clang-format.py
 install:
 
 script:
