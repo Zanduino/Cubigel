@@ -49,6 +49,7 @@ before_install:
 install:
 
 script:
+  - python run-clang-format.py -r .
   - build_main_platforms
 
 notifications:
