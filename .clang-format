@@ -164,7 +164,7 @@ SpacesInContainerLiterals: true
 SpacesInCStyleCastParentheses: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
-SpaceBeforeSquareBrackets: false
+##SpaceBeforeSquareBrackets: false
 Standard:        Auto
 #StatementMacros:
 #  - Q_UNUSED
