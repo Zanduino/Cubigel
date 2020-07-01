@@ -1,4 +1,4 @@
-/***************************************************************************************************
+/**************************************************************************************************************************
 This program defines the Cubigel class header. The Cubigel compressors that support the FDC1
 protocol can be accessed using this library. The detailed protocol description can be downloaded as
 a PDF file from https://www.sv-zanshin.com/r/manuals/cubigel_fdc1_communication_protocol.pdf
