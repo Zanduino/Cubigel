@@ -170,7 +170,7 @@ Standard:        Auto
 #  - Q_UNUSED
 #  - QT_REQUIRE_VERSION
 TabWidth:        8
-UseCRLF:         false
+#UseCRLF:         false
 UseTab:          Never
 ...
 
