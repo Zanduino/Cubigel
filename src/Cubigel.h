@@ -37,6 +37,7 @@ received a copy of the GNU General Public License along with this program.  If n
 
 Vers.  Date       Developer  Comments
 ====== ========== ========== =======================================================================
+1.0.3  2020-09-30 SV-Zanshin Issue #2 - convert sources to clang-format compatibility
 1.0.2  2017-08-21 SV-Zanshin Removed extraneous code, changed comments
 1.0.1  2017-07-31 SV-Zanshin Prototypes contain optional parameter definitions, the functions no
                              longer have them declared as non-Windows compilers fail when they do
