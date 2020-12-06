@@ -1,4 +1,6 @@
- [![Build Status](https://travis-ci.org/Zanduino/Cubigel.svg?branch=master)](https://travis-ci.com/Zanduino/Cubigel) [![Wiki](https://github.com/SV-Zanshin/BME680/blob/master/Images/Documentation-wiki.svg)](https://github.com/Zanduino/FridgeLogger/wiki)
+[![Platform Compile](https://github.com/Zanduino/Cubigel/workflows/Platform%20Compile/badge.svg)](https://github.com/Zanduino/Cubigel/actions?query=workflow%3A%22Platform+Compile%22) [![c++ Format](https://github.com/Zanduino/Cubigel/workflows/c++%20Format/badge.svg)](https://github.com/Zanduino/Cubigel/actions?query=workflow%3A%22c%2B%2B+Format%22)
+
+[![Build Status](https://travis-ci.org/Zanduino/Cubigel.svg?branch=master)](https://travis-ci.com/Zanduino/Cubigel) [![Wiki](https://github.com/SV-Zanshin/BME680/blob/master/Images/Documentation-wiki.svg)](https://github.com/Zanduino/FridgeLogger/wiki)
  
  # Cubigel library
 <img src="https://github.com/SV-Zanshin/Cubigel/blob/master/Images/HuayiCompressor.png" width="175" align="right"/> *Arduino* library for communicating with any compressor in the [Cubigel family](http://www.huayicompressor.es/) which uses their proprietery [FDC1](https://www.sv-zanshin.com/r/manuals/cubigel_fdc1_communication_protocol.pdf) communication protocol. The library allows reading the programmed compressor settings as well as the data sentences that are sent twice a second from the compressor.
