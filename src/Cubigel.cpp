@@ -77,15 +77,15 @@ CubigelClass::CubigelClass(HardwareSerial *ser1,    // Overloaded Class construc
   setMode(1, MODE_SETTINGS);                        // Retrieve settings on first call
 }  // of class constructor
 
-/***************************************************************************************************
-** function StartTimer() is called as part of class instantiation to enable internal timing. The  **
-**code uses the Timer0 interrupt (also used by the millis() function) which is an 8 bit register  **
-** with a clock divisor of 64 which triggers it to overflow at a rate of 976.5625Hz, or roughly   **
-** every millisecond. We set TIMER0_COMPA_vect to 0x01 which triggers when the value is equal to  **
-** 64. This gives us an identical trigger speed to the millis() function but at a different       **
-** trigger point.                                                                                 **
-***************************************************************************************************/
 void CubigelClass::StartTimer() {
+  /*************************************************************************************************
+  ** function StartTimer() is called as part of class instantiation to enable internal timing. The**
+  ** code uses the Timer0 interrupt (also used by the millis() function) which is an 8 bit        **
+  *  register with a clock divisor of 64 which triggers it to overflow at a rate of 976.5625Hz, or**
+  ** roughly every millisecond. We set TIMER0_COMPA_vect to 0x01 which triggers when the value is **
+  ** equal to 64. This gives us an identical trigger speed to the millis() function but at a      **
+  ** different trigger point.                                                                     **
+  *************************************************************************************************/
   cli();                  // Disable interrupts
   OCR0A = 0x40;           // Comparison register A to 64
   TIMSK0 |= _BV(OCIE0A);  // TIMER0_COMPA trigger on 0x01
@@ -102,13 +102,13 @@ ISR(TIMER0_COMPA_vect) { CubigelClass::TimerISR(); }  // Call the ISR every mill
 static void CubigelClass::TimerISR() {
   ClassPtr->TimerHandler();
 }  // Redirect to real handler function
-/***************************************************************************************************
-** function TimerHandler() is linked to the millis() timer 0 interrupt. This is called every      **
-** millisecond and we check to see if anything has arrived in the receive buffers. Each devices'  **
-** buffer is checked and any that have data in them are processed using the "processDevice"       **
-** function, which does the heavy lifting.                                                        **
-***************************************************************************************************/
 void CubigelClass::TimerHandler() {
+  /*************************************************************************************************
+  ** function TimerHandler() is linked to the millis() timer 0 interrupt. This is called every    **
+  ** millisecond and we check to see if anything has arrived in the receive buffers. Each devices'**
+  ** buffer is checked and any that have data in them are processed using the "processDevice"     **
+  ** function, which does the heavy lifting.                                                      **
+  *************************************************************************************************/
   for (uint8_t idx = 0; idx < _deviceCount; idx++) {  // For each defined device
     if (devices[idx].serialSW) {                      // if we are using software serial,
       if (devices[idx].serialSW->available())
@@ -120,14 +120,14 @@ void CubigelClass::TimerHandler() {
   }                          // of for-next each defined device loop
 }  // of method TimerHandler()
 
-/***************************************************************************************************
-** function readValues() is called to process the collected readings. The return value is the     **
-** number of readings taken and the parameters are updated (pass by reference) with the current   **
-** value. The default settings is that the statistics are reset after this call, but the optional **
-** resetReading parameter can override this setting                                               **
-***************************************************************************************************/
 uint16_t CubigelClass::readValues(const uint8_t idx, uint16_t &RPM, uint16_t &mA,
                                   const bool resetReadings) {
+  /*************************************************************************************************
+  ** function readValues() is called to process the collected readings. The return value is the   **
+  ** number of readings taken and the parameters are updated (pass by reference) with the current **
+  ** value. The default settings is that the statistics are reset after this call, but the        **
+  ** optional resetReading parameter can override this setting                                    **
+  *************************************************************************************************/
   if (idx >= _deviceCount) return 0;                    // just return nothing if invalid
   cli();                                                // Disable interrupts
   RPM = devices[idx].totalRPM / devices[idx].readings;  // set the averaged RPM value
@@ -144,13 +144,13 @@ uint16_t CubigelClass::readValues(const uint8_t idx, uint16_t &RPM, uint16_t &mA
   return tempReadings;                                  // Return the number of readings
 }  // of method readValues
 
-/***************************************************************************************************
-** function readValues() is called to return the collected statistics for a device. By default    **
-** the readings are reset after this call, but optionally they can be retained.                   **
-***************************************************************************************************/
 uint16_t CubigelClass::readValues(const uint8_t idx, uint16_t &RPM, uint16_t &mA,
                                   uint16_t &commsErrors, uint16_t errorStatus,
                                   const bool resetReadings) {
+  /*************************************************************************************************
+  ** function readValues() is called to return the collected statistics for a device. By default  **
+  ** the readings are reset after this call, but optionally they can be retained.                 **
+  *************************************************************************************************/
   if (idx >= _deviceCount) return 0;                            // just return nothing if invalid
   cli();                                                        // Disable interrupts
   RPM         = devices[idx].totalRPM / devices[idx].readings;  // set the averaged RPM value
@@ -168,12 +168,12 @@ uint16_t CubigelClass::readValues(const uint8_t idx, uint16_t &RPM, uint16_t &mA
   sei();                                                        // Enable interrupts
   return tempReadings;                                          // Return the number of readings
 }  // of method readValues
-/***************************************************************************************************
-** function setMode() is called to set which mode the Cubigel outputs data in. The default mode,  **
-** MODE_DEFAULT, outputs the message type 76 which contains the compressor speed and current      **
-** consumption.                                                                                   **
-***************************************************************************************************/
 void CubigelClass::setMode(const uint8_t idx, const uint8_t mode) {
+  /*************************************************************************************************
+  ** function setMode() is called to set which mode the Cubigel outputs data in. The default mode,**
+  ** MODE_DEFAULT, outputs the message type 76 which contains the compressor speed and current    **
+  ** consumption.                                                                                 **
+  *************************************************************************************************/
   uint8_t modeByte = 0;                         // Byte to set state, default is 0
   if (mode == 1) modeByte = 192;                // Mode 0 is the default
   if (idx >= _deviceCount) return;              // just return nothing if invalid
@@ -291,31 +291,31 @@ void CubigelClass::processDevice(const uint8_t idx) {
   }                              // of if-then-else we are at the first byte
 }  // of method ProcessDevice
 
-/***************************************************************************************************
-** Function readTiming() is called to return the given device's last state change from ON-OFF or  **
-** OFF-ON.                                                                                        **
-***************************************************************************************************/
 bool CubigelClass::readTiming(const uint8_t idx, uint32_t &onTime, uint32_t &offTime) {
+  /*************************************************************************************************
+  ** Function readTiming() is called to return the given device's last state change from ON-OFF or**
+  ** OFF-ON.                                                                                      **
+  *************************************************************************************************/
   bool tempTimeChanged     = devices[idx].timeChanged;  // Store the current value to return
   onTime                   = devices[idx].onTime;
   offTime                  = devices[idx].offTime;
   devices[idx].timeChanged = false;  // Reset the change flag if set
   return (tempTimeChanged);
 }  // of method ReadTiming
-/***************************************************************************************************
-** Function requestSettings() is called to retrieve a settings sentence from the given device and **
-** to store it in the memory structure.                                                           **
-***************************************************************************************************/
 void CubigelClass::requestSettings(const uint8_t idx) {
+  /*************************************************************************************************
+  ** Function requestSettings() is called to retrieve a settings sentence from the given device   **
+  ** and to store it in the memory structure.                                                     **
+  *************************************************************************************************/
   setMode(idx, MODE_SETTINGS);  // Change to get a settings sentence
 }  // of method reqeustSettings
-/***************************************************************************************************
-** Function readSettings() is called to return the given device's settings. These are read once   **
-** during class instantiation and stored                                                          **
-***************************************************************************************************/
 void CubigelClass::readSettings(const uint8_t idx, uint16_t &compMin, uint16_t &compMax,
                                 uint16_t &out12V, uint16_t &in12V, uint16_t &out24V,
                                 uint16_t &in24V, uint16_t &out42V, uint16_t &in42V, uint8_t &mode) {
+  /*************************************************************************************************
+  ** Function readSettings() is called to return the given device's settings. These are read once **
+  ** during class instantiation and stored                                                        **
+  *************************************************************************************************/
   compMin = devices[idx].minSpeed;  // Read values from structure into
   compMax = devices[idx].maxSpeed;  // return variables
   out12V  = devices[idx].cutOut12V;
