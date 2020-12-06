@@ -1,4 +1,4 @@
-/***************************************************************************************************
+/*
 This program is a simple example for the Cubigel compressor communications library class. The class,
 once instantiated, will automatically collect statistics in the background using an interrupt so
 that any program using the library can do any processing it needs until such time as it requests the
@@ -30,7 +30,8 @@ Ver.   Date       Developer  Comments
 1.0.2  2020-06-25 SV-Zanshin Fixed comments
 1.0.1  2017-08-21 SV-Zanshin Fixed comments, removed extraneous code
 1.0.0b 2017-02-21 SV-Zanshin Initial coding
-***************************************************************************************************/
+*/
+
 #include <Cubigel.h>                               // Include Cubigel library
 #include <SoftwareSerial.h>                        // Software serial port emulation
 enum DeviceName { Fridge, Freezer, LastElement };  // Define the devices
@@ -42,9 +43,9 @@ SoftwareSerial FridgeSerial(FRIDGE_RX_PIN,
 // Instantiate with one software and one hardware serial port
 CubigelClass Cubigel(&FridgeSerial, &Serial1);
 static char  sprintfBuffer[32];  // Buffer for formatted text output
-/*****************************************************************************
-setup() method is part of the Arduino IDE and is executed once at startup
-*******************************************************************************/
+/***************************************************************************************************
+** setup() method is part of the Arduino IDE and is executed once at startup                      **
+***************************************************************************************************/
 void setup() {             // Start One-Time run section
   Serial.begin(115200);    // Initialize Serial I/O at speed
 #ifdef __AVR_ATmega32U4__  // If a 32U4 processor, then wait 3s to init port
@@ -109,9 +110,9 @@ void setup() {             // Start One-Time run section
   Serial.println(F("| Rdgs RPM  mA    Cycle | Rdgs RPM  mA    Cycle |"));
   Serial.println(F("| ==== ==== ===== ===== | ==== ==== ===== ===== |"));
 }  // of method "setup()"
-/*******************************************************************************
-loop() method is part of the Arduino IDE and is executed in an infinite loop
-*******************************************************************************/
+/***************************************************************************************************
+** loop() method is part of the Arduino IDE and is executed in an infinite loop                   **
+***************************************************************************************************/
 void loop() {                                               // Main program infinite loop
   static unsigned long nextInterval  = 0;                   // store time for next display
   static uint32_t      tempStartTime = 0;                   // store the last compressor start
