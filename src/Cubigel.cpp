@@ -161,7 +161,8 @@ uint16_t CubigelClass::readValues(const uint8_t idx, uint16_t &RPM, uint16_t &mA
   @param[in] idx Index to device array
   @param[in] RPM Return average RPM
   @param[in] mA  Return average milliamps
-  @param[in] resetReadings optional parameter that doesn't reset readings when "false". Default true.
+  @param[in] resetReadings optional parameter that doesn't reset readings when "false". Default
+  true.
   @return Number of readings
   */
   if (idx >= _deviceCount) return 0;                    // just return nothing if invalid
@@ -357,7 +358,7 @@ bool CubigelClass::readTiming(const uint8_t idx, uint32_t &onTime, uint32_t &off
 }  // of method ReadTiming
 void CubigelClass::requestSettings(const uint8_t idx) {
   /*!
-    @brief    called to retrieve a settings sentence from the given device and to store it in the 
+    @brief    called to retrieve a settings sentence from the given device and to store it in the
               memory structure
     @param[in] idx Index to device array
     @return void
@@ -368,7 +369,7 @@ void CubigelClass::readSettings(const uint8_t idx, uint16_t &compMin, uint16_t &
                                 uint16_t &out12V, uint16_t &in12V, uint16_t &out24V,
                                 uint16_t &in24V, uint16_t &out42V, uint16_t &in42V, uint8_t &mode) {
   /*!
-    @brief     called to return the given device's settings. These are read once during class 
+    @brief     called to return the given device's settings. These are read once during class
                instantiation and stored
     @param[in] idx Index to device array
     @param[out] compMin
