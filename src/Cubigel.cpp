@@ -12,8 +12,9 @@
 ***************************************************************************************************/
 #include "Cubigel.h"  // Include the header file
 
-#include <SoftwareSerial.h>            // Include the software serial lib
-CubigelClass *CubigelClass::ClassPtr;  // Declare Class Reference pointer
+#include <SoftwareSerial.h>  // Include the software serial lib
+
+CubigelClass *CubigelClass::ClassPtr;  ///< Declare Class Reference pointer
 /***************************************************************************************************
 ** The class constructor is overloaded to allow from 1 to CUBIGEL_MAX_DEVICES devices to be       **
 ** monitored at the same time. Data is read using either the SoftwareSerial or the HardwareSerial **
@@ -23,92 +24,123 @@ CubigelClass *CubigelClass::ClassPtr;  // Declare Class Reference pointer
 ** interrupt ISR is attached to the local static function, which in turn uses a pointer to the    **
 ** class with an offset to the appropriate function to call the correct function.                 **
 ****************************************************************************************************/
-CubigelClass::CubigelClass(SoftwareSerial *ser1) {  // Constructor 1 Software port
-  ClassPtr            = this;                       // pointer to current instance
-  devices[0].serialSW = ser1;                       // point to the appropriate port
-  devices[0].serialSW->begin(CUBIGEL_BAUD_RATE);    // Set baud rate to Cubigel speed
-  _deviceCount = 1;                                 // Store the number of devices
-  StartTimer();                                     // Enable timer interrupts
-  setMode(0, MODE_SETTINGS);                        // Retrieve settings on first call
+CubigelClass::CubigelClass(SoftwareSerial *serial1) {
+  /*!
+   * @brief     Constructor (overloaded) for one serial port
+   * @details   Point to appropriate software port
+   * @param[in] serial1 Pointer to software serial port
+   */
+  ClassPtr            = this;                     // pointer to current instance
+  devices[0].serialSW = serial1;                  // point to the appropriate port
+  devices[0].serialSW->begin(CUBIGEL_BAUD_RATE);  // Set baud rate to Cubigel speed
+  _deviceCount = 1;                               // Store the number of devices
+  StartTimer();                                   // Enable timer interrupts
+  setMode(0, MODE_SETTINGS);                      // Retrieve settings on first call
+}  // of class constructor
+CubigelClass::CubigelClass(HardwareSerial *serial1) {
+  /*!
+   * @brief     Constructor (overloaded) for one serial port
+   * @details   Point to appropriate hardware port
+   * @param[in] serial1 Pointer to hardware serial port
+   */
+  ClassPtr            = this;                     // pointer to current instance
+  devices[0].serialHW = serial1;                  // point to the appropriate port
+  devices[0].serialHW->begin(CUBIGEL_BAUD_RATE);  // Set baud rate to Cubigel speed
+  _deviceCount = 1;                               // Store the number of devices
+  StartTimer();                                   // Enable timer interrupts
+  setMode(0, MODE_SETTINGS);                      // Retrieve settings on first call
+}  // of class constructor
+CubigelClass::CubigelClass(HardwareSerial *serial1, SoftwareSerial *serial2) {
+  /*!
+    @brief     Constructor (overloaded) for a HW and a SW serial port
+    @details   Point to appropriate hardware and serial ports
+    @param[in] serial1 Pointer to hardware serial port
+    @param[in] serial2 Pointer to software serial port
+  */
+  ClassPtr            = this;                     // pointer to current instance
+  devices[0].serialHW = serial1;                  // point to the appropriate port
+  devices[0].serialHW->begin(CUBIGEL_BAUD_RATE);  // Set baud rate to Cubigel speed
+  devices[1].serialSW = serial2;                  // point to the appropriate port
+  devices[1].serialSW->begin(CUBIGEL_BAUD_RATE);  // Set baud rate to Cubigel speed
+  _deviceCount = 2;                               // Store the number of devices
+  StartTimer();                                   // Enable timer interrupts
+  setMode(0, MODE_SETTINGS);                      // Retrieve settings on first call
+  setMode(1, MODE_SETTINGS);                      // Retrieve settings on first call
+}  // of class constructor
+CubigelClass::CubigelClass(SoftwareSerial *serial1, HardwareSerial *serial2) {
+  /*!
+    @brief     Constructor (overloaded) for a SW and a HW serial port
+    @details   Point to appropriate hardware and serial ports
+    @param[in] serial1 Pointer to software serial port
+    @param[in] serial2 Pointer to hardware serial port
+  */
+  ClassPtr            = this;                     // pointer to current instance
+  devices[0].serialSW = serial1;                  // point to the appropriate port
+  devices[0].serialSW->begin(CUBIGEL_BAUD_RATE);  // Set baud rate to Cubigel speed
+  devices[1].serialHW = serial2;                  // point to the appropriate port
+  devices[1].serialHW->begin(CUBIGEL_BAUD_RATE);  // Set baud rate to Cubigel speed
+  _deviceCount = 2;                               // Store the number of devices
+  StartTimer();                                   // Enable timer interrupts
+  setMode(0, MODE_SETTINGS);                      // Retrieve settings on first call
+  setMode(1, MODE_SETTINGS);                      // Retrieve settings on first call
+}  // of class constructor
+CubigelClass::CubigelClass(HardwareSerial *serial1, HardwareSerial *serial2) {
+  /*!
+    @brief     Constructor (overloaded) for a HW and a HW serial port
+    @details   Point to appropriate hardware and serial ports
+    @param[in] serial1 Pointer to hardware serial port
+    @param[in] serial2 Pointer to hardware serial port
+  */
+  ClassPtr            = this;                     // pointer to current instance
+  devices[0].serialHW = serial1;                  // point to the appropriate port
+  devices[0].serialHW->begin(CUBIGEL_BAUD_RATE);  // Set baud rate to Cubigel speed
+  devices[1].serialHW = serial2;                  // point to the appropriate port
+  devices[1].serialHW->begin(CUBIGEL_BAUD_RATE);  // Set baud rate to Cubigel speed
+  _deviceCount = 2;                               // Store the number of devices
+  StartTimer();                                   // Enable timer interrupts
+  setMode(0, MODE_SETTINGS);                      // Retrieve settings on first call
+  setMode(1, MODE_SETTINGS);                      // Retrieve settings on first call
 }  // of class constructor
 
-CubigelClass::CubigelClass(HardwareSerial *ser1) {  // Constructor 1 Hardware port
-  ClassPtr            = this;                       // pointer to current instance
-  devices[0].serialHW = ser1;                       // point to the appropriate port
-  devices[0].serialHW->begin(CUBIGEL_BAUD_RATE);    // Set baud rate to Cubigel speed
-  _deviceCount = 1;                                 // Store the number of devices
-  StartTimer();                                     // Enable timer interrupts
-  setMode(0, MODE_SETTINGS);                        // Retrieve settings on first call
-}  // of class constructor
-CubigelClass::CubigelClass(HardwareSerial *ser1,    // Overloaded Class constructor
-                           SoftwareSerial *ser2) {  // with 2 devices - HW then SW
-  ClassPtr            = this;                       // pointer to current instance
-  devices[0].serialHW = ser1;                       // point to the appropriate port
-  devices[0].serialHW->begin(CUBIGEL_BAUD_RATE);    // Set baud rate to Cubigel speed
-  devices[1].serialSW = ser2;                       // point to the appropriate port
-  devices[1].serialSW->begin(CUBIGEL_BAUD_RATE);    // Set baud rate to Cubigel speed
-  _deviceCount = 2;                                 // Store the number of devices
-  StartTimer();                                     // Enable timer interrupts
-  setMode(0, MODE_SETTINGS);                        // Retrieve settings on first call
-  setMode(1, MODE_SETTINGS);                        // Retrieve settings on first call
-}  // of class constructor
-CubigelClass::CubigelClass(SoftwareSerial *ser1,    // Overloaded Class constructor
-                           HardwareSerial *ser2) {  // with 2 devices - SW then HW
-  ClassPtr            = this;                       // pointer to current instance
-  devices[0].serialSW = ser1;                       // point to the appropriate port
-  devices[0].serialSW->begin(CUBIGEL_BAUD_RATE);    // Set baud rate to Cubigel speed
-  devices[1].serialHW = ser2;                       // point to the appropriate port
-  devices[1].serialHW->begin(CUBIGEL_BAUD_RATE);    // Set baud rate to Cubigel speed
-  _deviceCount = 2;                                 // Store the number of devices
-  StartTimer();                                     // Enable timer interrupts
-  setMode(0, MODE_SETTINGS);                        // Retrieve settings on first call
-  setMode(1, MODE_SETTINGS);                        // Retrieve settings on first call
-}  // of class constructor
-CubigelClass::CubigelClass(HardwareSerial *ser1,    // Overloaded Class constructor
-                           HardwareSerial *ser2) {  // with 2 devices - HW then HW
-  ClassPtr            = this;                       // pointer to current instance
-  devices[0].serialHW = ser1;                       // point to the appropriate port
-  devices[0].serialHW->begin(CUBIGEL_BAUD_RATE);    // Set baud rate to Cubigel speed
-  devices[1].serialHW = ser2;                       // point to the appropriate port
-  devices[1].serialHW->begin(CUBIGEL_BAUD_RATE);    // Set baud rate to Cubigel speed
-  _deviceCount = 2;                                 // Store the number of devices
-  StartTimer();                                     // Enable timer interrupts
-  setMode(0, MODE_SETTINGS);                        // Retrieve settings on first call
-  setMode(1, MODE_SETTINGS);                        // Retrieve settings on first call
-}  // of class constructor
-
-void CubigelClass::StartTimer() {
-  /*************************************************************************************************
-  ** function StartTimer() is called as part of class instantiation to enable internal timing. The**
-  ** code uses the Timer0 interrupt (also used by the millis() function) which is an 8 bit        **
-  *  register with a clock divisor of 64 which triggers it to overflow at a rate of 976.5625Hz, or**
-  ** roughly every millisecond. We set TIMER0_COMPA_vect to 0x01 which triggers when the value is **
-  ** equal to 64. This gives us an identical trigger speed to the millis() function but at a      **
-  ** different trigger point.                                                                     **
-  *************************************************************************************************/
+void CubigelClass::StartTimer() const {
+  /*!
+    @brief   starts TIMER0_COMPA timer
+    @details called as part of class instantiation to enable internal timing. The code uses the
+             Timer0 interrupt (also used by the millis() function) which is an 8 bit register with a
+             clock divisor of 64 which triggers it to overflow at a rate of 976.5625Hz, or roughly
+             every millisecond. We set TIMER0_COMPA_vect to 0x01 which triggers when the value is
+             equal to 64. This gives us an identical trigger speed to the millis() function but at a
+             different trigger point.
+    @return void
+  */
   cli();                  // Disable interrupts
   OCR0A = 0x40;           // Comparison register A to 64
   TIMSK0 |= _BV(OCIE0A);  // TIMER0_COMPA trigger on 0x01
   sei();                  // Enable interrupts
 }  // of method StartTimer()
-
-/***************************************************************************************************
-** Define the ISR (Interrupt Service Routine) for the timer event to check to see if we have      **
-** incoming data from a Cubigel device. This definition is done as a static function which can be **
-** set directly as part of the Arduino IDE inside a class definition. It, in turn, redirects the  **
-** interrupt to a class member function where the actual interrupt is handled                     **
-***************************************************************************************************/
-ISR(TIMER0_COMPA_vect) { CubigelClass::TimerISR(); }  // Call the ISR every millisecond
+ISR(TIMER0_COMPA_vect) {
+  /*!
+    @brief   Define the ISR (Interrupt Service Routine) for the timer event
+    @details This definition is done as a static function which can be set directly as part of the
+             Arduino IDE inside a class definition. It, in turn, redirects the interrupt to a class
+             member function where the actual interrupt is handled
+  */
+  CubigelClass::TimerISR();  // Call the ISR every millisecond
+}  // of ISR definition
 static void CubigelClass::TimerISR() {
+  /*!
+  @brief   Timer redirect
+  @return void
+*/
   ClassPtr->TimerHandler();
 }  // Redirect to real handler function
 void CubigelClass::TimerHandler() {
-  /*************************************************************************************************
-  ** function TimerHandler() is linked to the millis() timer 0 interrupt. This is called every    **
-  ** millisecond and we check to see if anything has arrived in the receive buffers. Each devices'**
-  ** buffer is checked and any that have data in them are processed using the "processDevice"     **
-  ** function, which does the heavy lifting.                                                      **
-  *************************************************************************************************/
+  /*!
+  @brief   linked to the millis() timer 0 interrupt
+  @details This is called every millisecond and we check to see if anything has arrived in the
+           receive buffers. Each devices' buffer is checked and any that have data in them are
+           processed using the "processDevice" function, which does the heavy lifting
+  */
   for (uint8_t idx = 0; idx < _deviceCount; idx++) {  // For each defined device
     if (devices[idx].serialSW) {                      // if we are using software serial,
       if (devices[idx].serialSW->available())
@@ -119,15 +151,19 @@ void CubigelClass::TimerHandler() {
     }                        // of if-then-else software or hardware serial
   }                          // of for-next each defined device loop
 }  // of method TimerHandler()
-
 uint16_t CubigelClass::readValues(const uint8_t idx, uint16_t &RPM, uint16_t &mA,
                                   const bool resetReadings) {
-  /*************************************************************************************************
-  ** function readValues() is called to process the collected readings. The return value is the   **
-  ** number of readings taken and the parameters are updated (pass by reference) with the current **
-  ** value. The default settings is that the statistics are reset after this call, but the        **
-  ** optional resetReading parameter can override this setting                                    **
-  *************************************************************************************************/
+  /*!
+  @brief   called to process the collected readings
+  @details The return value is the number of readings taken and the parameters are updated (pass by
+           reference) with the current value. The default settings is that the statistics are reset
+           after this call, but the optional resetReading parameter can override this setting
+  @param[in] idx Index to device array
+  @param[in] RPM Return average RPM
+  @param[in] mA  Return average milliamps
+  @param[in] resetReadings optional parameter that doesn't reset readings when "false". Default true.
+  @return Number of readings
+  */
   if (idx >= _deviceCount) return 0;                    // just return nothing if invalid
   cli();                                                // Disable interrupts
   RPM = devices[idx].totalRPM / devices[idx].readings;  // set the averaged RPM value
@@ -143,14 +179,24 @@ uint16_t CubigelClass::readValues(const uint8_t idx, uint16_t &RPM, uint16_t &mA
   sei();                                                // Enable interrupts
   return tempReadings;                                  // Return the number of readings
 }  // of method readValues
-
 uint16_t CubigelClass::readValues(const uint8_t idx, uint16_t &RPM, uint16_t &mA,
                                   uint16_t &commsErrors, uint16_t errorStatus,
                                   const bool resetReadings) {
-  /*************************************************************************************************
-  ** function readValues() is called to return the collected statistics for a device. By default  **
-  ** the readings are reset after this call, but optionally they can be retained.                 **
-  *************************************************************************************************/
+  /*!
+    @brief   called to process the collected readings
+    @details The return value is the number of readings taken and the parameters are updated (pass
+             by reference) with the current value. The default settings is that the statistics are
+             reset after this call, but the optional resetReading parameter can override this
+    setting
+    @param[in] idx Index to device array
+    @param[in] RPM Return average RPM
+    @param[in] mA  Return average milliamps
+    @param[in] commsErrors
+    @param[in] errorStatus
+    @param[in] resetReadings optional parameter that doesn't reset readings when "false". Default
+    true.
+    @return Number of readings
+  */
   if (idx >= _deviceCount) return 0;                            // just return nothing if invalid
   cli();                                                        // Disable interrupts
   RPM         = devices[idx].totalRPM / devices[idx].readings;  // set the averaged RPM value
@@ -169,11 +215,14 @@ uint16_t CubigelClass::readValues(const uint8_t idx, uint16_t &RPM, uint16_t &mA
   return tempReadings;                                          // Return the number of readings
 }  // of method readValues
 void CubigelClass::setMode(const uint8_t idx, const uint8_t mode) {
-  /*************************************************************************************************
-  ** function setMode() is called to set which mode the Cubigel outputs data in. The default mode,**
-  ** MODE_DEFAULT, outputs the message type 76 which contains the compressor speed and current    **
-  ** consumption.                                                                                 **
-  *************************************************************************************************/
+  /*!
+    @brief   called to set which mode the Cubigel outputs data in
+    @details The default mode, MODE_DEFAULT, outputs the message type 76 which contains the
+             compressor speed and current consumption.
+    @param[in] idx Index to device array
+    @param[in] mode
+    @return void
+  */
   uint8_t modeByte = 0;                         // Byte to set state, default is 0
   if (mode == 1) modeByte = 192;                // Mode 0 is the default
   if (idx >= _deviceCount) return;              // just return nothing if invalid
@@ -195,12 +244,14 @@ void CubigelClass::setMode(const uint8_t idx, const uint8_t mode) {
     devices[idx].serialHW->write((uint8_t)15);  // Write control information
   }  // of if-then-else software or hardware serial is use
 }  // of method setMode()
-/***************************************************************************************************
-** function processDevice() is called when there is data received on the port for a specific      **
-** device. The device number is passed in as a parameter and the rest of the logic is independent **
-** of which device it is.                                                                         **
-***************************************************************************************************/
 void CubigelClass::processDevice(const uint8_t idx) {
+  /*!
+  @brief   is called when there is data received on the port for a specific device
+  @details The device number is passed in as a parameter and the rest of the logic is independent
+           of which device it is
+  @param[in] idx Index to device array
+  @return void
+*/
   if (devices[idx].serialSW) {  // if we are using software serial,
     devices[idx].buffer[devices[idx].index++] =
         devices[idx].serialSW->read();  // Read next byte into buffer
@@ -290,12 +341,14 @@ void CubigelClass::processDevice(const uint8_t idx) {
     }                            // of if-then we have a complete sentence
   }                              // of if-then-else we are at the first byte
 }  // of method ProcessDevice
-
 bool CubigelClass::readTiming(const uint8_t idx, uint32_t &onTime, uint32_t &offTime) {
-  /*************************************************************************************************
-  ** Function readTiming() is called to return the given device's last state change from ON-OFF or**
-  ** OFF-ON.                                                                                      **
-  *************************************************************************************************/
+  /*!
+@brief   called to return the given device's last state change from ON-OFF or OFF-ON
+@param[in] idx Index to device array
+@param[out] onTime Timde device turned on
+@param[out] offTime Timde device turned off
+@return void
+*/
   bool tempTimeChanged     = devices[idx].timeChanged;  // Store the current value to return
   onTime                   = devices[idx].onTime;
   offTime                  = devices[idx].offTime;
@@ -303,19 +356,32 @@ bool CubigelClass::readTiming(const uint8_t idx, uint32_t &onTime, uint32_t &off
   return (tempTimeChanged);
 }  // of method ReadTiming
 void CubigelClass::requestSettings(const uint8_t idx) {
-  /*************************************************************************************************
-  ** Function requestSettings() is called to retrieve a settings sentence from the given device   **
-  ** and to store it in the memory structure.                                                     **
-  *************************************************************************************************/
+  /*!
+    @brief    called to retrieve a settings sentence from the given device and to store it in the 
+              memory structure
+    @param[in] idx Index to device array
+    @return void
+  */
   setMode(idx, MODE_SETTINGS);  // Change to get a settings sentence
-}  // of method reqeustSettings
+}  // of method requestSettings
 void CubigelClass::readSettings(const uint8_t idx, uint16_t &compMin, uint16_t &compMax,
                                 uint16_t &out12V, uint16_t &in12V, uint16_t &out24V,
                                 uint16_t &in24V, uint16_t &out42V, uint16_t &in42V, uint8_t &mode) {
-  /*************************************************************************************************
-  ** Function readSettings() is called to return the given device's settings. These are read once **
-  ** during class instantiation and stored                                                        **
-  *************************************************************************************************/
+  /*!
+    @brief     called to return the given device's settings. These are read once during class 
+               instantiation and stored
+    @param[in] idx Index to device array
+    @param[out] compMin
+    @param[out] compMax
+    @param[out] out12V
+    @param[out] in12V
+    @param[out] out24V
+    @param[out] in24V
+    @param[out] out42V
+    @param[out] in42V
+    @param[out] mode
+    @return void
+  */
   compMin = devices[idx].minSpeed;  // Read values from structure into
   compMax = devices[idx].maxSpeed;  // return variables
   out12V  = devices[idx].cutOut12V;
