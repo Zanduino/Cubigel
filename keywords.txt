@@ -2,9 +2,9 @@
 ## Syntax Coloring Map for library. The values below MUST be separated by a single "TAB", otherwise ##
 ## the file will not be parsed correctly.                                                           ##
 ##                                                                                                  ##
-## Date       Developer                     Comments                                                ##
-## ========== ============================= ======================================================= ##
-## 2020-06-25 https://github.com/SV-Zanshin Updated values, added versioning comments               ##
+## Date       Developer  Comments                                                                   ##
+## ========== ========== ========================================================================== ##
+## 2020-06-25 SV-Zanshin Updated values, added versioning comments                                  ##
 ##                                                                                                  ##
 ######################################################################################################
 
@@ -24,6 +24,3 @@ readTiming	KEYWORD2
 ########################
 # Constants (LITERAL1) #
 ########################
-
-
-

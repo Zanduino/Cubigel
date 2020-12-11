@@ -5,43 +5,61 @@
 
 @section Cubigel_section Description
 
-This program defines the Cubigel class header. The Cubigel compressors that support the FDC1 
+This program defines the Cubigel class header. The Cubigel compressors that support the FDC1
 protocol can be accessed using this library. The detailed protocol description can be downloaded
 as a PDF file from https://www.sv-zanshin.com/r/manuals/cubigel_fdc1_communication_protocol.pdf
 
-This library uses the Arduino SoftwareSerial library, and it is important to only use those pins 
-which support pin change interrupts for the fridge and freezer inputs. A good description of the 
+This library uses the Arduino SoftwareSerial library, and it is important to only use those pins
+which support pin change interrupts for the fridge and freezer inputs. A good description of the
 pins and their uses can be found at https://www.arduino.cc/en/Reference/AttachInterrupt.
 
-While the Cubigel transmits data every 0.5 seconds, this library is designed to use its own 
+While the Cubigel transmits data every 0.5 seconds, this library is designed to use its own
 interrupt to read the data and to compile statistics until such time as the calling program is ready
 to consume it. The Arduino SoftwareSerial library is used, but as it only supports a single port at
 a time it will not work if more than one device uses the library. This library supports the use of
-both hardware and software serial ports, and if more than one device is used then at most one port 
+both hardware and software serial ports, and if more than one device is used then at most one port
 can use the SoftwareSerial library/class. The pointer to the appropriate class instance is passed in
 to this library during class instantiation and the constructor is overloaded to reflect the various
 options available.
 
-Although programming for the Arduino and in c/c++ is new to me, I'm a professional programmer and 
-have learned, over the years, that it is much easier to ignore superfluous comments than it is to 
-decipher non-existent ones; so both my comments and variable names tend to be verbose. There are 
-several parts of code which can be somewhat optimized, but in order to make the c++ code more 
-understandable by non-programmers some performance has been sacrificed for legibility and 
+Although programming for the Arduino and in c/c++ is new to me, I'm a professional programmer and
+have learned, over the years, that it is much easier to ignore superfluous comments than it is to
+decipher non-existent ones; so both my comments and variable names tend to be verbose. There are
+several parts of code which can be somewhat optimized, but in order to make the c++ code more
+understandable by non-programmers some performance has been sacrificed for legibility and
 maintainability.
+
+@section doxygen doxygen configuration
+
+This library is built with the standard "Doxyfile", which is located at
+https://github.com/Zanduino/Common/blob/main/Doxygen. As described on that page, there are only 5
+environment variables used, and these are set in the project's actions file, located at
+https://github.com/Zanduino/Cubigel/blob/master/.github/workflows/ci-doxygen.yml
+Edit this file and set the 5 variables -  PRETTYNAME, PROJECT_NAME, PROJECT_NUMBER, PROJECT_BRIEF
+and PROJECT_LOGO so that these values are used in the doxygen documentation.
+The local copy of the doxyfile should be in the project's root directory in order to do local
+doxygen testing, but the file is ignored on upload to GitHub.
+
+@section clang-format
+Part of the GitHub actions for CI is running every source file through "clang-format" to ensure
+that coding formatting is done the same for all files. The configuration file ".clang-format" is
+located at https://github.com/Zanduino/Common/tree/main/clang-format and this is used for CI tests
+when pushing to GitHub. The local file, if present in the root directory, is ignored when
+committing and uploading.
 
 @section license License
 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU 
-General Public License as published by the Free Software Foundation, either version 3 of the 
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+General Public License as published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version. This program is distributed in the hope that it will
 be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have 
-received a copy of the GNU General Public License along with this program.  If not, see 
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have
+received a copy of the GNU General Public License along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
 @section author Author
 
-Written by Arnd, https://github.com/SV-Zanshin
+Written by Arnd <Zanshin_Github@sv-zanshin.com> / https://www.github.com/SV-Zanshin
 
 @section versions Changelog
 
@@ -50,9 +68,9 @@ Version | Date       | Developer  | Comments
 1.0.4   | 2020-12-07 | SV-Zanshin | Converted to doxygen commenting
 1.0.3   | 2020-09-30 | SV-Zanshin | Issue #2 - convert sources to clang-format compatibility
 1.0.2   | 2017-08-21 | SV-Zanshin | Removed extraneous code, changed comments
-1.0.1   | 2017-07-31 | SV-Zanshin | Prototypes contain optional parameter definitions, the functions no longer have them declared as non-Windows compilers fail when they do 
-1.0.0   | 2017-04-19 | SV-Zanshin | Cleaned up debugging code and ready for first release 
-1.0.b1  | 2017-04-18 | SV-Zanshin | Added hardware serial in addition tosoftware serial 
+1.0.1   | 2017-07-31 | SV-Zanshin | Prototypes contain optional parameter definitions, the functions no longer have them declared as non-Windows compilers fail when they do
+1.0.0   | 2017-04-19 | SV-Zanshin | Cleaned up debugging code and ready for first release
+1.0.b1  | 2017-04-18 | SV-Zanshin | Added hardware serial in addition tosoftware serial
 1.0.b2  | 2017-02-21 | SV-Zanshin | Initial coding
 */
 // clang-format on
