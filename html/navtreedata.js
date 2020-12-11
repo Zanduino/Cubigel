@@ -3,6 +3,8 @@ var NAVTREE =
   [ "Cubigel", "index.html", [
     [ "Arduino Library to access and control a Cubigel compressor", "index.html", [
       [ "Description", "index.html#Cubigel_section", null ],
+      [ "doxygen configuration", "index.html#doxygen", null ],
+      [ "clang-format", "index.html#clang-format", null ],
       [ "License", "index.html#license", null ],
       [ "Author", "index.html#author", null ],
       [ "Changelog", "index.html#versions", null ]
