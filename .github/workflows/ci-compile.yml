@@ -8,7 +8,7 @@
 ## 1.0.0   2020-12-05 SV-Zanshin     Initial coding                                               ##
 ##                                                                                                ##
 ####################################################################################################
-name: 'Platform Compile'
+name: 'Build'
 on: 
   push:
   pull_request:
