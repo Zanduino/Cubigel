@@ -7,7 +7,7 @@
 
 This program defines the Cubigel class header. The Cubigel compressors that support the FDC1
 protocol can be accessed using this library. The detailed protocol description can be downloaded
-as a PDF file from https://www.sv-zanshin.com/r/manuals/cubigel_fdc1_communication_protocol.pdf
+as a PDF file from the GitHub repository "documents" directory.
 
 This library uses the Arduino SoftwareSerial library, and it is important to only use those pins
 which support pin change interrupts for the fridge and freezer inputs. A good description of the
@@ -59,7 +59,7 @@ received a copy of the GNU General Public License along with this program.  If n
 
 @section author Author
 
-Written by Arnd <Zanshin_Github@sv-zanshin.com> / https://www.github.com/SV-Zanshin
+Written by Arnd <Arnd@Zanduino.Com> at https://www.github.com/SV-Zanshin
 
 @section versions Changelog
 
