@@ -78,7 +78,7 @@ Version | Date       | Developer  | Comments
 #include "Arduino.h"                     // Arduino data type definitions
 #include "SoftwareSerial.h"              // Software serial port emulation
 #ifndef Cubigel_h                        // Guard code definition
- #define Cubigel_h                        ///< Define the name inside guard code
+ #define Cubigel_h                       ///< Define the name inside guard code
 const uint16_t CUBIGEL_BAUD_RATE{1200};  ///< Cubigel has a fixed baud rate
 const uint8_t  CUBIGEL_MAX_DEVICES{2};   ///< Max number of devices supported
 const uint8_t  MODE_DEFAULT{0};          ///< Default output mode
