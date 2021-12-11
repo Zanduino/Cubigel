@@ -63,8 +63,7 @@ void setup() {
 #ifdef __AVR_ATmega32U4__  // If a 32U4 processor, then wait 3s to init port
   delay(3000);
 #endif
-  while (!Serial) {
-  };  // Give serial port time to start
+  while (!Serial) {};  // Give serial port time to start
   Serial.println(F("Cubigel example program [v1.0.4]"));
   delay(1100);  // 2 sentences get sent per second,
   delay(1100);  // Repeat for first data sentence
