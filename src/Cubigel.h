@@ -83,7 +83,7 @@ const uint16_t CUBIGEL_BAUD_RATE{1200};  ///< Cubigel has a fixed baud rate
 const uint8_t  CUBIGEL_MAX_DEVICES{2};   ///< Max number of devices supported
 const uint8_t  MODE_DEFAULT{0};          ///< Default output mode
 const uint8_t  MODE_SETTINGS{1};         ///< Output settings mode
-/*! @brief  his structure contains all of the variables stored per Cubigel device */
+/*! @brief  this structure contains all of the variables stored per Cubigel device */
 typedef struct {
   HardwareSerial *serialHW;     ///< Pointer to HardwareSerial
   SoftwareSerial *serialSW;     ///< Pointer to SoftwareSerial
